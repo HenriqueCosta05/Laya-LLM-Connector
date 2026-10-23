@@ -33,17 +33,24 @@ def _ranked(probabilities: dict) -> list[tuple[str, float]]:
     return sorted(((str(k), float(v)) for k, v in probabilities.items()), key=lambda kv: kv[1], reverse=True)
 
 
+def _ranked_nonempty(qid: str, probabilities: dict) -> list[tuple[str, float]]:
+    ranked = _ranked(probabilities)
+    if not ranked:
+        raise ValueError(f"{qid}: answer has empty probabilities")
+    return ranked
+
+
 def parse_answer(qid: str, answer: dict, threshold: float) -> Decision:
     kind = answer["type"]
     runner_up = None
     if kind == "choice":
-        ranked = _ranked(answer["probabilities"])
+        ranked = _ranked_nonempty(qid, answer["probabilities"])
         label, value = ranked[0]
         if len(ranked) > 1:
             runner_up = ranked[1]
     elif kind == "score":
         legend = answer["legend"]
-        ranked = _ranked(answer["probabilities"])
+        ranked = _ranked_nonempty(qid, answer["probabilities"])
         label, value = _short(legend[ranked[0][0]]), float(answer["score"])
         if len(ranked) > 1:
             runner_up = (_short(legend[ranked[1][0]]), ranked[1][1])

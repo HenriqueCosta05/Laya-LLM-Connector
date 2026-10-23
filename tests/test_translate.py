@@ -1,3 +1,5 @@
+import pytest
+
 from laya_connector.translate import Decision, build_batch_request, build_request, parse_answer, parse_result
 from tests import answers as A
 
@@ -39,3 +41,13 @@ def test_parse_result_keeps_schema_order_and_thresholds(schemas):
     decisions = parse_result(schemas["hook"], res)
     assert list(decisions) == ["task_kind", "jailbreak"]
     assert decisions["jailbreak"].low is True   # max(.55,.45)=.55 < hook threshold .6
+
+
+def test_parse_choice_empty_probabilities_raises_value_error():
+    with pytest.raises(ValueError, match="q"):
+        parse_answer("q", {"type": "choice", "choice": "", "probabilities": {}, "answer_confidence": 0.0}, threshold=0.5)
+
+
+def test_parse_score_empty_probabilities_raises_value_error():
+    with pytest.raises(ValueError, match="r"):
+        parse_answer("r", {"type": "score", "score": 0.0, "legend": {}, "probabilities": {}}, threshold=0.5)
