@@ -164,7 +164,7 @@ Nenhum arquivo versionado contém caminhos absolutos, nomes de usuário, hardwar
 3. instala `laya[serve]` na versão fixada;
 4. gera `remote_key`;
 5. baixa o checkpoint configurado;
-6. executa o `doctor`.
+6. termina mostrando os próximos passos: iniciar o daemon (`uv run --script bin/laya_daemon.py start`) e depois rodar o `doctor`.
 
 O README traz o caminho mínimo: instalar o `uv`, clonar, rodar `laya_setup.py`, depois `laya_daemon.py start`, e abrir o projeto no Claude Code. Inclui ainda uma nota para quem usa Claude Code no Windows com daemon no WSL: rodar setup e daemon dentro do WSL.
 
