@@ -61,3 +61,38 @@ def test_connection_refused():
     with pytest.raises(DaemonError) as err:
         DaemonClient("http://127.0.0.1:9", timeout=1).health()
     assert err.value.kind in ("unavailable", "timeout")
+
+
+def test_invalid_json_body_is_http_error(fake_daemon):
+    fake_daemon.responder = lambda m, p, b: (200, b"not json")
+    with pytest.raises(DaemonError) as err:
+        DaemonClient(fake_daemon.url).health()
+    assert err.value.kind == "http"
+
+
+def test_non_utf8_body_is_http_error(fake_daemon):
+    fake_daemon.responder = lambda m, p, b: (200, b"\xff\xfe\x00\x81")
+    with pytest.raises(DaemonError) as err:
+        DaemonClient(fake_daemon.url).health()
+    assert err.value.kind == "http"
+
+
+def test_truncated_body_is_unavailable(fake_daemon):
+    fake_daemon.responder = lambda m, p, b: (200, fake_daemon.Truncated(b'{"status":', 100))
+    with pytest.raises(DaemonError) as err:
+        DaemonClient(fake_daemon.url).health()
+    assert err.value.kind == "unavailable"
+
+
+def test_connection_dropped_before_response_is_unavailable(fake_daemon):
+    fake_daemon.responder = lambda m, p, b: fake_daemon.DROP
+    with pytest.raises(DaemonError) as err:
+        DaemonClient(fake_daemon.url).health()
+    assert err.value.kind == "unavailable"
+
+
+def test_500_with_truncated_error_body_is_still_http_error(fake_daemon):
+    fake_daemon.responder = lambda m, p, b: (500, fake_daemon.Truncated(b'{"detail":', 100))
+    with pytest.raises(DaemonError) as err:
+        DaemonClient(fake_daemon.url).predict({})
+    assert err.value.kind == "http" and "500" in err.value.detail

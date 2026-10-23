@@ -31,7 +31,24 @@ def schemas():
     return load_schemas(REPO / "schemas")
 
 
+DROP = object()
+
+
+class Truncated:
+    """Response body whose content-length declares more bytes than are sent."""
+
+    def __init__(self, body: bytes, declared: int):
+        self.body = body
+        self.declared = declared
+
+
 class FakeDaemon:
+    """Responder may return (status, dict) as before, (status, bytes) for a raw body,
+    (status, Truncated(...)) for a short body, or DROP to close without a response."""
+
+    DROP = DROP
+    Truncated = Truncated
+
     def __init__(self):
         self.requests = []
         self.responder = lambda method, path, body: (200, {"status": "ok"})
@@ -47,12 +64,25 @@ class FakeDaemon:
                 if fake.delay:
                     time.sleep(fake.delay)
                 status, payload = fake.responder(method, self.path, body)
-                data = json.dumps(payload).encode("utf-8")
+                if payload is DROP:
+                    self.close_connection = True
+                    return
+                truncated = isinstance(payload, Truncated)
+                if truncated:
+                    data, declared = payload.body, payload.declared
+                elif isinstance(payload, bytes):
+                    data = payload
+                    declared = len(payload)
+                else:
+                    data = json.dumps(payload).encode("utf-8")
+                    declared = len(data)
                 self.send_response(status)
                 self.send_header("content-type", "application/json")
-                self.send_header("content-length", str(len(data)))
+                self.send_header("content-length", str(declared))
                 self.end_headers()
                 self.wfile.write(data)
+                if truncated:
+                    self.close_connection = True
 
             def do_GET(self):
                 self._handle("GET")

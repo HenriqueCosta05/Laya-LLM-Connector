@@ -1,6 +1,7 @@
 """Stdlib-only HTTP client for the laya-connector daemon."""
 from __future__ import annotations
 
+import http.client
 import ipaddress
 import json
 import socket
@@ -14,6 +15,13 @@ class DaemonError(Exception):
         super().__init__(f"{kind}: {detail}")
         self.kind = kind
         self.detail = detail
+
+
+def _read_error_body(exc: urllib.error.HTTPError) -> str:
+    try:
+        return exc.read()[:200].decode("utf-8", "replace")
+    except (OSError, http.client.HTTPException):
+        return ""
 
 
 def is_loopback_url(url: str) -> bool:
@@ -47,14 +55,15 @@ class DaemonClient:
         except urllib.error.HTTPError as exc:
             if exc.code == 401:
                 raise DaemonError("auth", "remote_key invalid or missing") from exc
-            body = exc.read()[:200].decode("utf-8", "replace")
-            raise DaemonError("http", f"{exc.code} {body}") from exc
+            raise DaemonError("http", f"{exc.code} {_read_error_body(exc)}") from exc
         except urllib.error.URLError as exc:
             if isinstance(exc.reason, (TimeoutError, socket.timeout)):
                 raise DaemonError("timeout", f"no answer in {timeout or self.timeout}s") from exc
             raise DaemonError("unavailable", str(exc.reason)) from exc
         except (TimeoutError, socket.timeout) as exc:
             raise DaemonError("timeout", f"no answer in {timeout or self.timeout}s") from exc
+        except http.client.HTTPException as exc:
+            raise DaemonError("unavailable", f"malformed or truncated response: {exc!r}") from exc
         except OSError as exc:
             raise DaemonError("unavailable", str(exc)) from exc
         except ValueError as exc:
