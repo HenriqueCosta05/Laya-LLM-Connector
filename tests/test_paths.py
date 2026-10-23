@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import pytest
 
@@ -70,3 +71,53 @@ def test_collect_lines_refuses(tmp_path, file):
     make_tree(tmp_path)
     with pytest.raises(PathError):
         collect_lines(tmp_path, file, None, None, max_items=10, max_chars=100)
+
+
+@pytest.mark.parametrize("n", range(0, 7))
+def test_truncate_never_exceeds_limit(n):
+    assert len(truncate("x" * 50, n)) <= n
+
+
+def test_truncate_small_limits_return_prefix():
+    assert truncate("abcdefgh", 0) == ""
+    assert truncate("abcdefgh", -4) == ""
+    assert truncate("abcdefgh", 3) == "abc"
+
+
+@pytest.mark.parametrize("pattern", ["", "C:foo", "C:/x/*", "\\\\server\\share\\*"])
+def test_collect_paths_refuses_malformed_patterns(tmp_path, pattern):
+    make_tree(tmp_path)
+    items, skipped = collect_paths(tmp_path, [pattern], max_items=10, max_chars=100)
+    assert items == [] and skipped == 1
+
+
+@pytest.mark.parametrize("file", ["", "C:foo", "C:/x/*", "\\\\server\\share\\log.txt"])
+def test_collect_lines_refuses_malformed_paths(tmp_path, file):
+    make_tree(tmp_path)
+    with pytest.raises(PathError):
+        collect_lines(tmp_path, file, None, None, max_items=10, max_chars=100)
+
+
+def test_collect_paths_skips_unreadable_file(tmp_path, monkeypatch):
+    make_tree(tmp_path)
+    original = Path.read_text
+
+    def flaky(self, *args, **kwargs):
+        if self.name == "a.py":
+            raise PermissionError("denied")
+        return original(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", flaky)
+    items, skipped = collect_paths(tmp_path, ["src/*.py"], max_items=10, max_chars=100)
+    assert [i.id for i in items] == ["src/b.py"] and skipped == 1
+
+
+def test_collect_lines_unreadable_file_raises_path_error(tmp_path, monkeypatch):
+    make_tree(tmp_path)
+
+    def denied(self, *args, **kwargs):
+        raise PermissionError("denied")
+
+    monkeypatch.setattr(Path, "read_text", denied)
+    with pytest.raises(PathError):
+        collect_lines(tmp_path, "log.txt", None, None, max_items=10, max_chars=100)
