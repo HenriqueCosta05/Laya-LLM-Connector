@@ -1,0 +1,7 @@
+{
+  "name": "change_risk", "version": 1, "description": "risk level of a change (trivial < local < cross-module < breaking)",
+  "state_key": "item", "classifiable": true, "thresholds": {"change_risk": 0.4},
+  "questions": {"change_risk": {"type": "score", "instructions": "How risky is the change described in `item`?",
+    "criteria": ["trivial: no code change or a one-line edit", "local: one file or one function",
+                 "cross-module: several files or modules", "breaking: public interfaces, data migrations or security-sensitive code"]}}
+}

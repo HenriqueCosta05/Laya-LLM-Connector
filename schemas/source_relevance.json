@@ -1,0 +1,6 @@
+{
+  "name": "source_relevance", "version": 1, "description": "is a passage useful to answer a query",
+  "state_key": "passage", "classifiable": false, "thresholds": {"relevant": 0.6},
+  "questions": {"relevant": {"type": "noul", "instructions": "Does `passage` contain information that helps answer `query`?",
+    "criteria": {"false": "the passage does not help answer the query", "true": "the passage helps answer the query"}}}
+}

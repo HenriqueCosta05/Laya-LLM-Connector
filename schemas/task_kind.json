@@ -1,0 +1,9 @@
+{
+  "name": "task_kind", "version": 1, "description": "kind of software task (bugfix, feature, refactor, ...)",
+  "state_key": "item", "classifiable": true, "thresholds": {"task_kind": 0.5},
+  "questions": {"task_kind": {"type": "choice", "instructions": "What kind of software task is `item`?",
+    "criteria": {"bugfix": "fix a defect, crash or error", "feature": "add new behaviour or capability",
+                 "refactor": "restructure code without changing behaviour", "explain": "explain or answer a question without changing code",
+                 "test": "write or fix tests", "review": "review code, a diff or a pull request",
+                 "ops": "build, deploy, CI, environment or tooling setup", "other": "anything else"}}}
+}

@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from laya_connector.config import Config
+from laya_connector.schemas import load_schemas
 
 REPO = Path(__file__).resolve().parent.parent
 
@@ -19,3 +20,8 @@ def make_cfg(tmp_path):
 @pytest.fixture
 def cfg(make_cfg) -> Config:
     return make_cfg()
+
+
+@pytest.fixture(scope="session")
+def schemas():
+    return load_schemas(REPO / "schemas")

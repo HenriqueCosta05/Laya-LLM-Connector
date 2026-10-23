@@ -1,0 +1,8 @@
+{
+  "name": "claim_check", "version": 1, "description": "does a passage entail, contradict or not settle a claim",
+  "state_key": "passage", "classifiable": false, "thresholds": {"relation": 0.5},
+  "questions": {"relation": {"type": "choice", "instructions": "How does `passage` relate to `claim`?",
+    "criteria": {"entails": "the passage states or implies that the claim is true",
+                 "contradicts": "the passage states or implies that the claim is false",
+                 "neutral": "the passage does not settle whether the claim is true"}}}
+}

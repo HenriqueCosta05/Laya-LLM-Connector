@@ -1,0 +1,7 @@
+{
+  "name": "issue_triage", "version": 1, "description": "issue kind (bug, feature_request, question, docs, chore)",
+  "state_key": "item", "classifiable": true, "thresholds": {"issue_triage": 0.5},
+  "questions": {"issue_triage": {"type": "choice", "instructions": "What kind of issue is `item`?",
+    "criteria": {"bug": "reports broken or wrong behaviour", "feature_request": "asks for new behaviour",
+                 "question": "asks how something works", "docs": "about documentation", "chore": "maintenance or housekeeping"}}}
+}

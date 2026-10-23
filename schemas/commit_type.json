@@ -1,0 +1,8 @@
+{
+  "name": "commit_type", "version": 1, "description": "Conventional Commits type of a change or message",
+  "state_key": "item", "classifiable": true, "thresholds": {"commit_type": 0.5},
+  "questions": {"commit_type": {"type": "choice", "instructions": "Which Conventional Commits type fits `item`?",
+    "criteria": {"feat": "adds a feature", "fix": "fixes a bug", "refactor": "restructures code without behaviour change",
+                 "docs": "documentation only", "test": "adds or fixes tests", "perf": "improves performance",
+                 "ci": "CI or build pipeline", "chore": "maintenance, dependencies or tooling"}}}
+}
