@@ -92,3 +92,10 @@ def test_entry_point_never_fails_on_garbage_stdin():
     proc = subprocess.run([sys.executable, str(REPO / "bin" / "laya_hook.py")], input=b"not json",
                           capture_output=True, timeout=30)
     assert proc.returncode == 0 and proc.stdout == b""
+
+
+def test_blocks_secret_even_in_slash_command(cfg, fake_daemon, schemas):
+    key = "sk-ant-api03-" + "A" * 40
+    out = run({"prompt": f"/review {key}"}, cfg, fake_daemon, schemas)
+    assert out["decision"] == "block" and key not in out["reason"]
+    assert fake_daemon.requests == []

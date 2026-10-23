@@ -33,9 +33,19 @@ def detect_wsl_gateway() -> str | None:
         return None
 
 
-def trusted_networks(extra: tuple[str, ...], wsl_gateway: str | None):
+WSL_NAT = ipaddress.ip_network("172.16.0.0/12")
+
+
+def _trustable_gateway(gateway: str | None) -> bool:
+    try:
+        return gateway is not None and ipaddress.ip_address(gateway) in WSL_NAT
+    except ValueError:
+        return False
+
+
+def trusted_networks(extra: tuple[str, ...], wsl_gateway: str | None, trust_wsl_gateway: bool = True):
     nets = [ipaddress.ip_network("127.0.0.0/8"), ipaddress.ip_network("::1/128")]
-    if wsl_gateway:
+    if trust_wsl_gateway and _trustable_gateway(wsl_gateway):
         nets.append(ipaddress.ip_network(f"{wsl_gateway}/32"))
     nets.extend(ipaddress.ip_network(cidr, strict=False) for cidr in extra)
     return nets
@@ -118,7 +128,7 @@ def main(root: Path) -> None:
     import uvicorn
     from laya.serve import create_app
 
-    app = OriginAuth(create_app(), trusted_networks(cfg.trusted_local, detect_wsl_gateway()), cfg.remote_key)
+    app = OriginAuth(create_app(), trusted_networks(cfg.trusted_local, detect_wsl_gateway(), cfg.trust_wsl_gateway), cfg.remote_key)
     uvicorn.run(app, host=cfg.host, port=cfg.port, log_level="info", proxy_headers=False)
 
 

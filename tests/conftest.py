@@ -79,6 +79,8 @@ class FakeDaemon:
                 self.send_response(status)
                 self.send_header("content-type", "application/json")
                 self.send_header("content-length", str(declared))
+                if 300 <= status < 400:
+                    self.send_header("location", fake.url + "/elsewhere")
                 self.end_headers()
                 self.wfile.write(data)
                 if truncated:

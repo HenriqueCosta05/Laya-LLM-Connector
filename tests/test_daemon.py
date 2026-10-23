@@ -84,3 +84,21 @@ def test_remote_without_configured_key_is_refused():
 def test_remote_health_is_status_only():
     status, body, called = call(make(), "203.0.113.5", path="/health")
     assert (status, json.loads(body), called) == (200, {"status": "ok"}, False)
+
+
+def trusted(ip, gateway, flag=True):
+    nets = daemon.trusted_networks((), gateway, flag)
+    return call(lambda app: daemon.OriginAuth(app, nets, "k"), ip)[2]
+
+
+def test_gateway_outside_wsl_nat_range_not_trusted():
+    assert trusted("192.168.0.1", "192.168.0.1") is False
+
+
+def test_gateway_not_trusted_when_flag_false():
+    assert trusted("172.24.0.1", "172.24.0.1", flag=False) is False
+
+
+def test_gateway_in_wsl_nat_range_trusted_when_flag_true():
+    assert trusted("172.24.0.1", "172.24.0.1") is True
+    assert trusted("172.24.0.2", "172.24.0.1") is False

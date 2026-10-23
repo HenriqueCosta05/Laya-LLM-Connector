@@ -23,6 +23,7 @@ class Config:
     device: str = ""
     checkpoint: str = "multilingual"
     trusted_local: tuple[str, ...] = ()
+    trust_wsl_gateway: bool = True
     remote_key: str | None = None
     hook_timeout: float = 2.5
     hook_min_chars: int = 15
@@ -62,6 +63,7 @@ _KEYS = {
     ("daemon", "device"): "device",
     ("daemon", "checkpoint"): "checkpoint",
     ("daemon", "trusted_local"): "trusted_local",
+    ("daemon", "trust_wsl_gateway"): "trust_wsl_gateway",
     ("hook", "timeout"): "hook_timeout",
     ("hook", "min_chars"): "hook_min_chars",
     ("hook", "max_chars"): "hook_max_chars",
@@ -78,8 +80,9 @@ _ENV = {
     "LAYA_CONNECTOR_REMOTE_KEY": "remote_key",
     "LAYA_CONNECTOR_DEVICE": "device",
     "LAYA_CONNECTOR_LOG_ENABLED": "log_enabled",
+    "LAYA_CONNECTOR_TRUST_WSL_GATEWAY": "trust_wsl_gateway",
 }
-_BOOLS = {"log_enabled", "log_store_prompt"}
+_BOOLS = {"log_enabled", "log_store_prompt", "trust_wsl_gateway"}
 
 
 def _read(path: Path) -> dict:

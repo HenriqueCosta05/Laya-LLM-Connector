@@ -44,3 +44,10 @@ def test_update_toml_file_round_trip(tmp_path):
     config.update_toml_file(path, "log", "enabled", False)
     data = tomllib.loads(path.read_text(encoding="utf-8"))
     assert data == {"daemon": {"device": "cpu", "trusted_local": ["1.2.3.4/32"]}, "log": {"enabled": False}}
+
+
+def test_trust_wsl_gateway_default_and_overrides(tmp_path):
+    assert config.load(tmp_path, env={}).trust_wsl_gateway is True
+    write(tmp_path / config.LOCAL_FILE, "[daemon]\ntrust_wsl_gateway = false\n")
+    assert config.load(tmp_path, env={}).trust_wsl_gateway is False
+    assert config.load(tmp_path, env={"LAYA_CONNECTOR_TRUST_WSL_GATEWAY": "1"}).trust_wsl_gateway is True

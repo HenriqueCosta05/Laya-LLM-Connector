@@ -59,6 +59,7 @@ def setup(cfg: config.Config, runner=subprocess.run, uv: str = "uv", say=print) 
 
     if not cfg.remote_key and not _existing_key(cfg):
         _create_private(cfg.secrets_path)
+        _tighten(cfg.secrets_path)
         config.update_toml_file(cfg.secrets_path, "secrets", "remote_key", secrets.token_urlsafe(32))
         say("generated remote_key in .laya-connector/secrets.toml")
     _tighten(cfg.secrets_path)

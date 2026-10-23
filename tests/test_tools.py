@@ -75,6 +75,7 @@ def test_instructions_are_short_and_list_schemas(schemas):
     for name in tools.classifiable_names(schemas):
         assert name in text
     assert "[laya]" in text and "paths" in text and len(text.split()) < 140
+    assert "repo_ctx" in text and "run_tests" in text and "risk=" in text
 
 
 def short_responder(answer):
@@ -101,3 +102,18 @@ def test_filter_sources_non_positive_top_k_means_no_limit(cfg, fake_daemon, sche
     srcs = [{"id": "s1", "text": "a"}, {"id": "s2", "text": "b"}]
     for k in (-1, 0):
         assert tools.filter_sources(cfg, client(fake_daemon), schemas, "q?", sources=srcs, top_k=k).startswith("keep 2/2")
+
+
+def test_bad_lines_argument_types_return_error_text(cfg, fake_daemon, schemas):
+    (cfg.root / "log.txt").write_text("a\nb\n", encoding="utf-8")
+    c = client(fake_daemon)
+    for lines in ({"file": "log.txt", "from": "1", "to": "x"}, "not-a-dict"):
+        out = tools.classify(cfg, c, schemas, "commit_type", lines=lines)
+        assert out.startswith("laya: error: ")
+    assert fake_daemon.requests == []
+
+
+def test_missing_named_schema_returns_error_text(cfg, fake_daemon):
+    c = client(fake_daemon)
+    assert tools.filter_sources(cfg, c, {}, "q", sources=[{"id": "1", "text": "t"}]).startswith("laya: error: ")
+    assert tools.check_claim(cfg, c, {}, "c", passages=[{"id": "1", "text": "t"}]).startswith("laya: error: ")

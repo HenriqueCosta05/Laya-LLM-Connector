@@ -7,6 +7,7 @@ port = 8000
 device = ""              # empty = automatic (CUDA -> MPS -> XPU -> CPU)
 checkpoint = "multilingual"
 trusted_local = []       # extra CIDRs treated as local, e.g. ["192.168.0.10/32"]
+trust_wsl_gateway = true # trust the WSL NAT gateway (172.16.0.0/12); set false behind portproxy or mirrored networking
 
 [hook]
 timeout = 2.5

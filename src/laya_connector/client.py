@@ -10,6 +10,15 @@ import urllib.request
 from urllib.parse import urlparse
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *args, **kwargs):
+        return None  # surfaces the 3xx as an HTTPError instead of following it
+
+
+# No env proxies (a proxy would see the bearer key) and no redirects (they could carry it elsewhere).
+_OPENER = urllib.request.build_opener(urllib.request.ProxyHandler({}), _NoRedirect)
+
+
 class DaemonError(Exception):
     def __init__(self, kind: str, detail: str):
         super().__init__(f"{kind}: {detail}")
@@ -50,7 +59,7 @@ class DaemonClient:
         data = None if payload is None else json.dumps(payload).encode("utf-8")
         request = urllib.request.Request(self.url + path, data=data, method=method, headers=self._headers())
         try:
-            with urllib.request.urlopen(request, timeout=timeout or self.timeout) as response:
+            with _OPENER.open(request, timeout=timeout or self.timeout) as response:
                 return json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
             if exc.code == 401:

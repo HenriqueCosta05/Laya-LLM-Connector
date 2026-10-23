@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 
+from laya_connector import paths as paths_module
 from laya_connector.paths import PathError, collect_lines, collect_paths, truncate
 
 
@@ -121,3 +122,35 @@ def test_collect_lines_unreadable_file_raises_path_error(tmp_path, monkeypatch):
     monkeypatch.setattr(Path, "read_text", denied)
     with pytest.raises(PathError):
         collect_lines(tmp_path, "log.txt", None, None, max_items=10, max_chars=100)
+
+
+def test_collect_paths_ignores_hidden_and_vendor_dirs(tmp_path):
+    for rel in (".venv/x.py", ".laya-connector/secrets.toml", "__pycache__/y.py", "node_modules/z.py", "src/real.py"):
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text("x = 1", encoding="utf-8")
+    items, skipped = collect_paths(tmp_path, ["**/*.py", "**/*.toml"], max_items=10, max_chars=100)
+    assert [i.id for i in items] == ["src/real.py"] and skipped == 0
+
+
+def test_collect_paths_cap_stops_io(tmp_path, monkeypatch):
+    for name in "abcde":
+        (tmp_path / f"{name}.txt").write_text(name, encoding="utf-8")
+    opened = []
+    original = paths_module._is_binary
+
+    def counting(path):
+        opened.append(path.name)
+        return original(path)
+
+    monkeypatch.setattr(paths_module, "_is_binary", counting)
+    items, skipped = collect_paths(tmp_path, ["*.txt"], max_items=2, max_chars=100)
+    assert [i.id for i in items] == ["a.txt", "b.txt"] and skipped == 3
+    assert opened == ["a.txt", "b.txt"]
+
+
+def test_relative_swallows_symlink_loop_runtime_error(tmp_path, monkeypatch):
+    def boom(self, strict=False):
+        raise RuntimeError("Symlink loop")
+
+    monkeypatch.setattr(Path, "resolve", boom)
+    assert paths_module._relative(tmp_path, tmp_path / "x") is None

@@ -84,3 +84,21 @@ def test_warmup_env_drops_api_key_and_empty_device(cfg, monkeypatch):
     setup_host.setup(cfg, runner=runner, say=lambda *_: None)
     warm = [e for c, e in zip(runner.calls, runner.envs) if setup_host.WARMUP in c]
     assert len(warm) == 1 and "LAYA_API_KEY" not in warm[0] and "LAYA_DEVICE" not in warm[0]
+
+
+@posix_only
+def test_secrets_file_is_tightened_before_key_is_written(cfg, monkeypatch):
+    cfg.secrets_path.parent.mkdir(parents=True)
+    cfg.secrets_path.write_text("", encoding="utf-8")
+    os.chmod(cfg.secrets_path, 0o644)
+    modes = []
+    original = setup_host.config.update_toml_file
+
+    def spy(path, *args):
+        if path == cfg.secrets_path:
+            modes.append(stat.S_IMODE(path.stat().st_mode))
+        return original(path, *args)
+
+    monkeypatch.setattr(setup_host.config, "update_toml_file", spy)
+    setup_host.setup(cfg, runner=FakeRunner([(0, "cpu\n")]), say=lambda *_: None)
+    assert modes == [0o600]

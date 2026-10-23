@@ -21,6 +21,8 @@ Depois abra a pasta no Claude Code. Ele lê `.claude/settings.json` (o hook) e `
 
 **Claude Code no Windows com o projeto no WSL:** rode setup e daemon *dentro* do WSL. O Claude Code no Windows acessa o daemon por `localhost`.
 
+> **Atenção (WSL):** por padrão o daemon confia no gateway do WSL (faixa `172.16.0.0/12`) para que o Windows o acesse sem chave. Com `netsh portproxy` no Windows ou rede WSL no modo *mirrored*, o tráfego externo chega com a origem do gateway e **ignora a `remote_key`**. Nesse caso defina `[daemon] trust_wsl_gateway = false` em `laya-connector.local.toml`.
+
 ## Configuração
 - `laya-connector.toml`: padrões portáveis (versionado).
 - `laya-connector.local.toml`: ajustes desta máquina, por exemplo `[daemon] device = "cpu"` ou `url` de um daemon remoto (ignorado pelo git).

@@ -39,8 +39,17 @@ def _unsafe_pattern(pattern: str) -> bool:
 def _relative(root: Path, path: Path) -> str | None:
     try:
         return path.resolve().relative_to(root.resolve()).as_posix()
-    except ValueError:
+    except (ValueError, RuntimeError):  # RuntimeError: symlink loop on py<=3.12
         return None
+
+
+def _hidden(root: Path, path: Path) -> bool:
+    """True for anything under a dot-dir/dotfile, __pycache__ or node_modules (venvs, secrets, logs)."""
+    try:
+        parts = path.relative_to(root).parts
+    except ValueError:
+        return False
+    return any(part.startswith(".") or part in ("__pycache__", "node_modules") for part in parts)
 
 
 def _is_binary(path: Path) -> bool:
@@ -49,6 +58,9 @@ def _is_binary(path: Path) -> bool:
 
 
 def collect_paths(root: Path, patterns: list[str], max_items: int, max_chars: int) -> tuple[list[Item], int]:
+    """Glob files under root. Matches inside hidden dirs, __pycache__ or node_modules are ignored
+    silently (so a pattern aimed at a root dotfile such as .gitignore matches nothing). Once max_items
+    is reached the remaining matches are only counted as skipped, without touching the disk."""
     items: list[Item] = []
     seen: set[str] = set()
     skipped = 0
@@ -62,6 +74,11 @@ def collect_paths(root: Path, patterns: list[str], max_items: int, max_chars: in
             skipped += 1
             continue
         for path in matches:
+            if _hidden(root, path):
+                continue
+            if len(items) >= max_items:
+                skipped += 1
+                continue
             try:
                 if not path.is_file():
                     continue
@@ -71,10 +88,7 @@ def collect_paths(root: Path, patterns: list[str], max_items: int, max_chars: in
                     continue
                 if rel in seen:
                     continue
-                if len(items) >= max_items:
-                    skipped += 1
-                    continue
-                text = path.read_text(encoding="utf-8", errors="replace")
+                text =path.read_text(encoding="utf-8", errors="replace")
             except OSError:
                 skipped += 1
                 continue

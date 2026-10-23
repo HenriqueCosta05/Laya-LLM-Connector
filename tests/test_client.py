@@ -85,7 +85,7 @@ def test_truncated_body_is_unavailable(fake_daemon):
 
 
 def test_connection_dropped_before_response_is_unavailable(fake_daemon):
-    fake_daemon.responder = lambda m, p, b: fake_daemon.DROP
+    fake_daemon.responder = lambda m, p, b: (200, fake_daemon.DROP)
     with pytest.raises(DaemonError) as err:
         DaemonClient(fake_daemon.url).health()
     assert err.value.kind == "unavailable"
@@ -96,3 +96,19 @@ def test_500_with_truncated_error_body_is_still_http_error(fake_daemon):
     with pytest.raises(DaemonError) as err:
         DaemonClient(fake_daemon.url).predict({})
     assert err.value.kind == "http" and "500" in err.value.detail
+
+
+def test_ignores_proxy_environment(fake_daemon, monkeypatch):
+    for var in ("HTTP_PROXY", "http_proxy", "ALL_PROXY", "all_proxy"):
+        monkeypatch.setenv(var, "http://127.0.0.1:9")
+    monkeypatch.delenv("NO_PROXY", raising=False)
+    monkeypatch.delenv("no_proxy", raising=False)
+    assert DaemonClient(fake_daemon.url).health() == {"status": "ok"}
+
+
+def test_redirect_is_refused_and_not_followed(fake_daemon):
+    fake_daemon.responder = lambda m, p, b: (302, {"detail": "moved"})
+    with pytest.raises(DaemonError) as err:
+        DaemonClient(fake_daemon.url).health()
+    assert err.value.kind == "http" and "302" in err.value.detail
+    assert len(fake_daemon.requests) == 1

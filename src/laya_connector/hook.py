@@ -18,14 +18,15 @@ def handle(event: dict, cfg: Config, client: DaemonClient, schema: Schema, logge
     prompt = str(event.get("prompt") or "")
     base = {"session_id": event.get("session_id"), "prompt": prompt, "schema": f"{schema.name}@{schema.version}"}
     stripped = prompt.strip()
-    if stripped.startswith("/") or len(stripped) < cfg.hook_min_chars:
-        logger.write({**base, "action": "skip"})
-        return None
 
-    found = find_secrets(prompt)
+    found = find_secrets(prompt)  # before the skips: "/review sk-ant-..." must still be blocked
     if found:
         logger.write({**base, "action": "block", "secrets": found})
         return {"decision": "block", "reason": f"segredo detectado ({', '.join(found)}); remova e reenvie"}
+
+    if stripped.startswith("/") or len(stripped) < cfg.hook_min_chars:
+        logger.write({**base, "action": "skip"})
+        return None
 
     started = time.perf_counter()
     state = {schema.state_key: truncate(prompt, cfg.hook_max_chars)}
