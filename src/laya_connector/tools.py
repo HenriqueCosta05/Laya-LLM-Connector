@@ -63,6 +63,9 @@ def _run(cfg: Config, client: DaemonClient, schema: Schema, states: list[dict]) 
         chunk = states[start:start + BATCH]
         timeout = cfg.mcp_timeout_base + cfg.mcp_timeout_per_item * len(chunk)
         response = client.predict_batch(build_batch_request(schema, chunk, cfg.checkpoint), timeout=timeout)
+        got = len(response["results"])
+        if got != len(chunk):
+            raise ValueError(f"daemon returned {got} results for {len(chunk)} items")
         decisions.extend(parse_result(schema, result) for result in response["results"])
     return decisions
 
@@ -108,7 +111,7 @@ def filter_sources(cfg: Config, client: DaemonClient, schemas: dict[str, Schema]
         return _error(f"bad daemon answer: {exc}")
     scored = [(item.id, d["relevant"].value) for item, d in zip(gathered, decisions)]
     kept = sorted((row for row in scored if row[1] >= min_p), key=lambda row: row[1], reverse=True)
-    if top_k:
+    if isinstance(top_k, int) and top_k > 0:
         kept = kept[:top_k]
     return filter_line(kept, len(gathered), skipped)
 

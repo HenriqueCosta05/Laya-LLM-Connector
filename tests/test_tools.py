@@ -75,3 +75,29 @@ def test_instructions_are_short_and_list_schemas(schemas):
     for name in tools.classifiable_names(schemas):
         assert name in text
     assert "[laya]" in text and "paths" in text and len(text.split()) < 140
+
+
+def short_responder(answer):
+    def respond(method, path, body):
+        qid = next(iter(body["questions"]))
+        return 200, {"results": [A.result(**{qid: answer}) for _ in body["states"][:-1]]}
+    return respond
+
+
+def test_short_daemon_results_are_an_error(cfg, fake_daemon, schemas):
+    c = client(fake_daemon)
+    srcs = [{"id": "s1", "text": "a"}, {"id": "s2", "text": "b"}]
+    fake_daemon.responder = short_responder(A.choice({"fix": 0.9, "feat": 0.1}))
+    out = tools.classify(cfg, c, schemas, "commit_type", items=["a", "b"])
+    assert out.startswith("laya: error: bad daemon answer:")
+    fake_daemon.responder = short_responder(A.noul(0.9))
+    assert tools.filter_sources(cfg, c, schemas, "q?", sources=srcs).startswith("laya: error: bad daemon answer:")
+    fake_daemon.responder = short_responder(A.choice({"entails": 0.9, "contradicts": 0.05, "neutral": 0.05}))
+    assert tools.check_claim(cfg, c, schemas, "c", passages=srcs).startswith("laya: error: bad daemon answer:")
+
+
+def test_filter_sources_non_positive_top_k_means_no_limit(cfg, fake_daemon, schemas):
+    fake_daemon.responder = batch_responder(lambda s: A.noul(0.9))
+    srcs = [{"id": "s1", "text": "a"}, {"id": "s2", "text": "b"}]
+    for k in (-1, 0):
+        assert tools.filter_sources(cfg, client(fake_daemon), schemas, "q?", sources=srcs, top_k=k).startswith("keep 2/2")
