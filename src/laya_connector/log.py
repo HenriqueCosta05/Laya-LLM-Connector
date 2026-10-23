@@ -18,15 +18,17 @@ class JsonlLogger:
     def write(self, record: dict) -> None:
         if not self.enabled:
             return
-        now = datetime.now(timezone.utc)
-        rec = {"ts": now.isoformat(timespec="seconds"), **record}
-        prompt = rec.get("prompt")
-        if isinstance(prompt, str):
-            rec["prompt_sha256"] = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
-            rec["prompt"] = mask_secrets(prompt) if self.store_prompt else None
         try:
+            now = datetime.now(timezone.utc)
+            rec = {"ts": now.isoformat(timespec="seconds"), **record}
+            prompt = rec.get("prompt")
+            if isinstance(prompt, str):
+                rec["prompt_sha256"] = hashlib.sha256(prompt.encode("utf-8", "surrogatepass")).hexdigest()
+                rec["prompt"] = mask_secrets(prompt) if self.store_prompt else None
+            line = json.dumps(rec, ensure_ascii=False) + "\n"
             self.directory.mkdir(parents=True, exist_ok=True)
-            with (self.directory / f"{now:%Y-%m}.jsonl").open("a", encoding="utf-8") as handle:
-                handle.write(json.dumps(rec, ensure_ascii=False) + "\n")
-        except (OSError, TypeError):
+            path = self.directory / f"{now:%Y-%m}.jsonl"
+            with path.open("a", encoding="utf-8", errors="backslashreplace") as handle:
+                handle.write(line)
+        except (OSError, TypeError, ValueError):
             pass
