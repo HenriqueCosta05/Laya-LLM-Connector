@@ -58,19 +58,34 @@ def setup(cfg: config.Config, runner=subprocess.run, uv: str = "uv", say=print) 
         return 1
 
     if not cfg.remote_key and not _existing_key(cfg):
+        _create_private(cfg.secrets_path)
         config.update_toml_file(cfg.secrets_path, "secrets", "remote_key", secrets.token_urlsafe(32))
-        if os.name != "nt":
-            os.chmod(cfg.secrets_path, 0o600)
         say("generated remote_key in .laya-connector/secrets.toml")
+    _tighten(cfg.secrets_path)
 
     effective = config.load(cfg.root)
     warm_env = {**os.environ, "LAYA_MODELS": effective.checkpoint, "LAYA_PRELOAD": "1", "LAYA_MAX_LOADED": "1"}
+    warm_env.pop("LAYA_API_KEY", None)
+    warm_env.pop("LAYA_DEVICE", None)
     if effective.device:
         warm_env["LAYA_DEVICE"] = effective.device
     if not step(f"download and load checkpoint '{effective.checkpoint}'", [str(python), "-c", WARMUP], env=warm_env):
         return 1
     say("setup complete: start the daemon with `uv run --script bin/laya_daemon.py start`")
     return 0
+
+
+def _create_private(path) -> None:
+    """Create an empty file with mode 0600 before any secret is written (POSIX only)."""
+    if os.name == "nt" or path.exists():
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    os.close(os.open(path, os.O_CREAT | os.O_WRONLY, 0o600))
+
+
+def _tighten(path) -> None:
+    if os.name != "nt" and path.exists():
+        os.chmod(path, 0o600)
 
 
 def _existing_key(cfg: config.Config) -> bool:
