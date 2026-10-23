@@ -1,0 +1,7 @@
+.laya-connector/
+laya-connector.local.toml
+.venv/
+.venv-daemon/
+__pycache__/
+*.pyc
+.pytest_cache/
