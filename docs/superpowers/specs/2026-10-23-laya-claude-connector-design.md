@@ -46,7 +46,7 @@ Abordagem escolhida: reusar o servidor oficial do Laya (`laya.serve.create_app()
 | `config` | carrega `laya-connector.toml` + `.laya-connector/secrets.toml` + variáveis de ambiente `LAYA_CONNECTOR_*`; valores padrão | stdlib (`tomllib`) |
 | `schemas` | carrega `schemas/*.json` (nome, versão, perguntas no formato do Laya, descrição de uma linha) | stdlib |
 | `client` | HTTP para o daemon via `urllib`; timeout; envia `Bearer` só se a URL não for loopback; erros viram `DaemonError` tipado | stdlib |
-| `translate` | (schema, estados) → payload `/v1/systemone[/batch]`; resposta → `Decision(qid, label, value, confidence, low_confidence, runner_up)` | `schemas` |
+| `translate` | (schema, estados) → payload `/v1/systemone[/batch]` **sempre com `model = <checkpoint>`**, para o roteador do Laya não carregar outro checkpoint (com `max_loaded = 1`, isso custaria uma recarga por troca de idioma); resposta → `Decision(qid, label, value, confidence, low_confidence, runner_up)` | `schemas` |
 | `format` | `Decision`s → texto compacto (hook e cada ferramenta) | — |
 | `policy` | funções puras: tier/effort sugerido; ação do guard (`block`/`warn`/`pass`) | `config` |
 | `secrets_scan` | regex de segredos (prefixos `sk-ant-`, `sk-`, `ghp_`/`github_pat_`, `AKIA`, PEM `PRIVATE KEY`, JWT); mascaramento para log | stdlib |
@@ -92,14 +92,14 @@ Entrada: o JSON do evento no stdin (`prompt`, `session_id`, `cwd`, ...). Fluxo:
    Timeout padrão de 2,5 s. Erro ou timeout → **fail-open**: sai sem saída e registra no log a ação `fail_open`.
 4. **Policy:**
    - `jailbreak ≥ 0.7` ou `sensitive_data ≥ 0.9` → `systemMessage` de aviso **para o usuário**, sem injetar no Claude.
-   - O tier sugerido (`small` / `mid` / `frontier` + effort) só é mostrado ao usuário, via `systemMessage`, quando for `frontier` ou `small`. Regras:
-     - `frontier`: sensível, `difficulty ≥ 2` ou baixa confiança;
-     - `mid`: precisa de ferramentas, `difficulty ≥ 1`, ou domínio `code`/`data_analysis`;
-     - `small`: o restante.
+   - O tier sugerido (`small` / `mid` / `frontier` + effort `low` / `medium` / `high`) só é mostrado ao usuário, via `systemMessage`, quando for `frontier` ou `small`. Regras:
+     - `frontier`: `is_sensitive ≥ 0.5`, `difficulty ≥ 2` ou `difficulty` com baixa confiança;
+     - `small`: `difficulty < 1`, sem `needs_execution` nem `needs_repo_context`, e `task_kind` igual a `explain` ou `other`;
+     - `mid`: o restante.
    - Campos com `low_confidence` (limiar por pergunta no config) são omitidos.
 5. **Saída para o Claude** (`hookSpecificOutput.additionalContext`), uma linha, por exemplo:
-   `[laya] task=refactor .82 | risk=cross-module | repo_ctx | run_tests | tier=frontier/high`
-   Booleanos só aparecem quando verdadeiros. Se tudo for omitido, não há saída.
+   `[laya] task=refactor .82 | risk=cross-module | repo_ctx | run_tests`
+   Booleanos só aparecem quando verdadeiros. O tier não entra nessa linha, porque o Claude não pode trocar o próprio modelo. Se tudo for omitido, não há saída.
 6. **Log:** `ts`, `session_id`, prompt mascarado (ou só hash, se `log.store_prompt = false`), versão do schema, rótulo e probabilidades por pergunta, latência e ação (`skip | block | warn | inject | fail_open`).
 
 O hook nunca termina com código ≠ 0 por erro interno. Exceções são capturadas, registradas e convertidas em fail-open.
