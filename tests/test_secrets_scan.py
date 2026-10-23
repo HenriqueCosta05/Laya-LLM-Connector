@@ -40,3 +40,39 @@ def test_mask_replaces_values_with_kind():
     masked = mask_secrets(f"a {ANTHROPIC} b {GITHUB}")
     assert ANTHROPIC not in masked and GITHUB not in masked
     assert masked == "a [anthropic_api_key] b [github_token]"
+
+
+@pytest.mark.parametrize("text", [
+    "risk-management-and-compliance",
+    "task-description-for-the-user",
+    "disk-usage-monitoring-script",
+])
+def test_hyphenated_words_ending_in_sk_are_not_secrets(text):
+    assert find_secrets(text) == []
+    assert mask_secrets(text) == text
+
+
+@pytest.mark.parametrize("prefix", ["", "key=", "'", '"', " "])
+def test_openai_key_detected_after_any_boundary(prefix):
+    assert find_secrets(prefix + OPENAI) == ["openai_api_key"]
+
+
+PEM_BODY = "MIIEpAIBAAKCAQEAu1SU1LfVLPHCozMxH2Mo\nJ4Zq8sQ0bZ1xYy7kLmN9oPqRsTuVwXyZ\n"
+PEM_BLOCK = f"-----BEGIN RSA PRIVATE KEY-----\n{PEM_BODY}-----END RSA PRIVATE KEY-----"
+
+
+def test_mask_removes_full_private_key_block_and_keeps_surrounding_text():
+    masked = mask_secrets(f"before\n{PEM_BLOCK}\nafter")
+    assert masked == "before\n[private_key]\nafter"
+    assert "MIIEpAIBAAKCAQEA" not in masked
+
+
+def test_mask_masks_unterminated_private_key_through_end_of_text():
+    masked = mask_secrets(f"paste: -----BEGIN PRIVATE KEY-----\n{PEM_BODY}")
+    assert masked == "paste: [private_key]"
+    assert "MIIEpAIBAAKCAQEA" not in masked
+
+
+def test_find_reports_private_key_for_full_and_unterminated_blocks():
+    assert find_secrets(PEM_BLOCK) == ["private_key"]
+    assert find_secrets(f"-----BEGIN PRIVATE KEY-----\n{PEM_BODY}") == ["private_key"]
