@@ -1,0 +1,24 @@
+# Portable defaults. Machine-specific overrides go in laya-connector.local.toml (git-ignored).
+
+[daemon]
+url = "http://127.0.0.1:8000"
+host = "0.0.0.0"
+port = 8000
+device = ""              # empty = automatic (CUDA -> MPS -> XPU -> CPU)
+checkpoint = "multilingual"
+trusted_local = []       # extra CIDRs treated as local, e.g. ["192.168.0.10/32"]
+
+[hook]
+timeout = 2.5
+min_chars = 15
+max_chars = 4000
+
+[mcp]
+max_items = 128
+item_chars = 2000
+timeout_base = 10.0
+timeout_per_item = 1.0
+
+[log]
+enabled = true
+store_prompt = true
