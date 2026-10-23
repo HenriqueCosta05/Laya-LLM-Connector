@@ -17,6 +17,14 @@ uv run --script bin/laya_setup.py        # venv do daemon, torch (GPU→CPU), la
 uv run --script bin/laya_daemon.py start
 uv run --script bin/laya_doctor.py       # confere daemon, auth e latência
 ```
+Ou tudo de uma vez, instalando o `uv` se faltar:
+```bash
+sh scripts/setup.sh                      # Linux, WSL ou macOS (--no-start só prepara)
+```
+```powershell
+powershell -ExecutionPolicy ByPass -File scripts\setup.ps1          # Windows: só instala o uv (para hook e MCP)
+powershell -ExecutionPolicy ByPass -File scripts\setup.ps1 -Daemon  # Windows hospedando o daemon
+```
 Depois abra a pasta no Claude Code. Ele lê `.claude/settings.json` (o hook) e `.mcp.json` (o servidor MCP) e pede sua aprovação na primeira vez.
 
 **Claude Code no Windows com o projeto no WSL:** rode setup e daemon *dentro* do WSL. O Claude Code no Windows acessa o daemon por `localhost`.
