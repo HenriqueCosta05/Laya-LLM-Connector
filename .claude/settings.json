@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {"hooks": [{"type": "command", "command": "uv run --quiet --script bin/laya_hook.py", "timeout": 5}]}
+    ]
+  }
+}
