@@ -36,6 +36,15 @@
         ],
         "createdAt": "2026-10-24T11:24:54.233Z",
         "reason": "Agent: spent decision-round sketch, never shipped; the built dashboard is .laya-connector/dashboard.html"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/*.html"
+        ],
+        "createdAt": "2026-10-24T11:36:05.187Z",
+        "reason": "Agent: spent decision-round sketches of unchosen directions; they predate DESIGN.md and never ship"
       }
     ]
   }

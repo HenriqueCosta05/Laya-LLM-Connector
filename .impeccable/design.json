@@ -1,0 +1,720 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T00:00:00Z",
+  "title": "Design System: Laya Connector",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Violeta de Sinal",
+        "canonical": "#a184ff",
+        "oklch": "oklch(69.5% 0.176 292.0)",
+        "tonalRamp": [
+          "#100032",
+          "#2a0f5a",
+          "#472c85",
+          "#664ab2",
+          "#8769e0",
+          "#a890fe",
+          "#cbb8ff",
+          "#f0e0ff"
+        ]
+      },
+      "ok": {
+        "role": "tertiary",
+        "displayName": "Verde Saudável",
+        "canonical": "#41bb7d",
+        "oklch": "oklch(70.9% 0.142 157.2)",
+        "tonalRamp": [
+          "#001400",
+          "#00320f",
+          "#005328",
+          "#007643",
+          "#0e9b5f",
+          "#56bd85",
+          "#88dfac",
+          "#b7ffd5"
+        ]
+      },
+      "warn": {
+        "role": "tertiary",
+        "displayName": "Âmbar de Aviso",
+        "canonical": "#e9a640",
+        "oklch": "oklch(77.2% 0.139 74.0)",
+        "tonalRamp": [
+          "#1e0200",
+          "#3f1900",
+          "#643500",
+          "#8a5300",
+          "#b27300",
+          "#d39842",
+          "#f4be76",
+          "#ffe6a7"
+        ]
+      },
+      "warn-ink": {
+        "role": "tertiary",
+        "displayName": "Âmbar de Aviso (texto)",
+        "canonical": "#e9a640",
+        "oklch": "oklch(77.2% 0.139 74.0)",
+        "tonalRamp": [
+          "#1e0200",
+          "#3f1900",
+          "#643500",
+          "#8a5300",
+          "#b27300",
+          "#d39842",
+          "#f4be76",
+          "#ffe6a7"
+        ]
+      },
+      "bad": {
+        "role": "tertiary",
+        "displayName": "Vermelho de Falha",
+        "canonical": "#f2625f",
+        "oklch": "oklch(67.9% 0.178 24.2)",
+        "tonalRamp": [
+          "#2a0000",
+          "#520001",
+          "#7d0e17",
+          "#aa2d30",
+          "#d84b4a",
+          "#f97873",
+          "#ffa39c",
+          "#ffcec6"
+        ]
+      },
+      "info": {
+        "role": "tertiary",
+        "displayName": "Azul de Bloqueio",
+        "canonical": "#58a6f5",
+        "oklch": "oklch(71.0% 0.140 250.7)",
+        "tonalRamp": [
+          "#00082c",
+          "#002452",
+          "#00437a",
+          "#1b63a5",
+          "#3786d2",
+          "#66aaf0",
+          "#92ceff",
+          "#bef4ff"
+        ]
+      },
+      "neutral": {
+        "role": "tertiary",
+        "displayName": "Cinza de Descarte",
+        "canonical": "#737a88",
+        "oklch": "oklch(57.8% 0.023 264.4)",
+        "tonalRamp": [
+          "#080b11",
+          "#21252d",
+          "#3d424c",
+          "#5b616d",
+          "#7b8291",
+          "#9fa5b2",
+          "#c3c9d5",
+          "#e9effa"
+        ]
+      },
+      "bg": {
+        "role": "neutral",
+        "displayName": "Grafite de Fundo",
+        "canonical": "#14161b",
+        "oklch": "oklch(20.0% 0.010 268.2)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#232529",
+          "#404247",
+          "#5f6167",
+          "#808289",
+          "#a2a5ab",
+          "#c7c9cf",
+          "#eceef3"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Grafite de Painel",
+        "canonical": "#1c1f26",
+        "oklch": "oklch(23.9% 0.014 267.0)",
+        "tonalRamp": [
+          "#0a0b0f",
+          "#23252a",
+          "#3f4248",
+          "#5e6169",
+          "#7e828b",
+          "#a1a5ad",
+          "#c6c9d1",
+          "#ebeef5"
+        ]
+      },
+      "raise": {
+        "role": "neutral",
+        "displayName": "Grafite Elevado",
+        "canonical": "#242832",
+        "oklch": "oklch(27.7% 0.019 268.0)",
+        "tonalRamp": [
+          "#090b10",
+          "#22252c",
+          "#3e424b",
+          "#5d616c",
+          "#7d828e",
+          "#a0a5b0",
+          "#c5c9d3",
+          "#eaeef8"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Filete",
+        "canonical": "#2c313b",
+        "oklch": "oklch(31.3% 0.019 264.2)",
+        "tonalRamp": [
+          "#090b10",
+          "#22252c",
+          "#3e424a",
+          "#5c616b",
+          "#7d828e",
+          "#a0a5b0",
+          "#c4c9d3",
+          "#eaeff8"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "canonical": "#e7e9ee",
+        "oklch": "oklch(93.4% 0.007 268.5)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#242527",
+          "#414245",
+          "#606165",
+          "#808287",
+          "#a3a5a9",
+          "#c7c9cd",
+          "#edeef2"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Tinta Secundária",
+        "canonical": "#aab0bc",
+        "oklch": "oklch(75.6% 0.018 264.5)",
+        "tonalRamp": [
+          "#090b10",
+          "#22252b",
+          "#3e424a",
+          "#5c616b",
+          "#7d828e",
+          "#a0a5b0",
+          "#c4c9d3",
+          "#eaeff7"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Tinta Terciária",
+        "canonical": "#8c93a1",
+        "oklch": "oklch(66.2% 0.022 264.4)",
+        "tonalRamp": [
+          "#080b11",
+          "#21252d",
+          "#3d424c",
+          "#5b616d",
+          "#7c8290",
+          "#9fa5b2",
+          "#c3c9d5",
+          "#e9eff9"
+        ]
+      },
+      "accent-light": {
+        "role": "primary",
+        "displayName": "Violeta de Sinal (claro)",
+        "canonical": "#6a43d9",
+        "oklch": "oklch(51.7% 0.215 288.4)",
+        "tonalRamp": [
+          "#11003c",
+          "#290167",
+          "#442395",
+          "#6242c6",
+          "#8261f8",
+          "#a38cff",
+          "#c6b5ff",
+          "#eadeff"
+        ]
+      },
+      "ok-light": {
+        "role": "tertiary",
+        "displayName": "Verde Saudável (claro)",
+        "canonical": "#1c8a54",
+        "oklch": "oklch(56.1% 0.127 156.0)",
+        "tonalRamp": [
+          "#001300",
+          "#003111",
+          "#00512a",
+          "#0f7444",
+          "#319861",
+          "#64ba87",
+          "#92ddae",
+          "#bfffd6"
+        ]
+      },
+      "warn-light": {
+        "role": "tertiary",
+        "displayName": "Âmbar de Aviso (claro)",
+        "canonical": "#b97600",
+        "oklch": "oklch(62.2% 0.134 70.4)",
+        "tonalRamp": [
+          "#1e0200",
+          "#401900",
+          "#653400",
+          "#8c5200",
+          "#b47200",
+          "#d49749",
+          "#f5bd7b",
+          "#ffe4aa"
+        ]
+      },
+      "warn-ink-light": {
+        "role": "tertiary",
+        "displayName": "Âmbar de Aviso, texto (claro)",
+        "canonical": "#8a5200",
+        "oklch": "oklch(49.2% 0.110 66.0)",
+        "tonalRamp": [
+          "#1c0300",
+          "#3d1b00",
+          "#613700",
+          "#875417",
+          "#ae7433",
+          "#cf9961",
+          "#f0be8d",
+          "#ffe5ba"
+        ]
+      },
+      "bad-light": {
+        "role": "tertiary",
+        "displayName": "Vermelho de Falha (claro)",
+        "canonical": "#cf3633",
+        "oklch": "oklch(56.7% 0.190 26.6)",
+        "tonalRamp": [
+          "#2c0000",
+          "#550000",
+          "#80020c",
+          "#ae2625",
+          "#dd4540",
+          "#fd746a",
+          "#ffa094",
+          "#ffccc0"
+        ]
+      },
+      "info-light": {
+        "role": "tertiary",
+        "displayName": "Azul de Bloqueio (claro)",
+        "canonical": "#1d6dcf",
+        "oklch": "oklch(54.3% 0.169 256.4)",
+        "tonalRamp": [
+          "#000334",
+          "#00205c",
+          "#003f87",
+          "#195fb5",
+          "#3481e4",
+          "#63a6ff",
+          "#8fccff",
+          "#bcf2ff"
+        ]
+      },
+      "neutral-light": {
+        "role": "tertiary",
+        "displayName": "Cinza de Descarte (claro)",
+        "canonical": "#7a8291",
+        "oklch": "oklch(60.5% 0.025 263.1)",
+        "tonalRamp": [
+          "#080b11",
+          "#21252e",
+          "#3c424d",
+          "#5b616e",
+          "#7b8392",
+          "#9ea5b3",
+          "#c3c9d6",
+          "#e9effa"
+        ]
+      },
+      "bg-light": {
+        "role": "neutral",
+        "displayName": "Névoa de Fundo (claro)",
+        "canonical": "#f3f4f7",
+        "oklch": "oklch(96.7% 0.004 271.4)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414244",
+          "#606163",
+          "#818285",
+          "#a4a5a7",
+          "#c8c9cb",
+          "#eeeef0"
+        ]
+      },
+      "panel-light": {
+        "role": "neutral",
+        "displayName": "Painel Branco (claro)",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "raise-light": {
+        "role": "neutral",
+        "displayName": "Superfície Elevada (claro)",
+        "canonical": "#f6f7f9",
+        "oklch": "oklch(97.6% 0.003 264.5)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414243",
+          "#606163",
+          "#818284",
+          "#a4a5a7",
+          "#c8c9cb",
+          "#eeeef0"
+        ]
+      },
+      "line-light": {
+        "role": "neutral",
+        "displayName": "Filete (claro)",
+        "canonical": "#e0e3e9",
+        "oklch": "oklch(91.5% 0.009 264.5)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#242528",
+          "#404246",
+          "#5f6166",
+          "#808288",
+          "#a2a5aa",
+          "#c7c9ce",
+          "#eceef3"
+        ]
+      },
+      "ink-light": {
+        "role": "neutral",
+        "displayName": "Tinta (claro)",
+        "canonical": "#1a1d23",
+        "oklch": "oklch(23.0% 0.012 264.3)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#232529",
+          "#3f4247",
+          "#5e6168",
+          "#7f828a",
+          "#a1a5ac",
+          "#c6c9d0",
+          "#eceef4"
+        ]
+      },
+      "ink-2-light": {
+        "role": "neutral",
+        "displayName": "Tinta Secundária (claro)",
+        "canonical": "#4a5260",
+        "oklch": "oklch(43.7% 0.025 261.7)",
+        "tonalRamp": [
+          "#080b12",
+          "#20252e",
+          "#3c424d",
+          "#5a626f",
+          "#7a8392",
+          "#9da5b4",
+          "#c2cad7",
+          "#e8effb"
+        ]
+      },
+      "ink-3-light": {
+        "role": "neutral",
+        "displayName": "Tinta Terciária (claro)",
+        "canonical": "#5f6876",
+        "oklch": "oklch(51.5% 0.025 259.2)",
+        "tonalRamp": [
+          "#080b11",
+          "#20252e",
+          "#3c424d",
+          "#5a626e",
+          "#7a8391",
+          "#9da6b3",
+          "#c2cad6",
+          "#e8effa"
+        ]
+      },
+      "accent-soft": {
+        "role": "primary",
+        "displayName": "Véu Violeta",
+        "canonical": "rgba(161,132,255,.16)",
+        "note": "Véu translúcido sobre o painel; sem rampa tonal própria."
+      },
+      "ok-soft": {
+        "role": "tertiary",
+        "displayName": "Véu Verde",
+        "canonical": "rgba(65,187,125,.14)",
+        "note": "Véu translúcido sobre o painel; sem rampa tonal própria."
+      },
+      "warn-soft": {
+        "role": "tertiary",
+        "displayName": "Véu Âmbar",
+        "canonical": "rgba(233,166,64,.15)",
+        "note": "Véu translúcido sobre o painel; sem rampa tonal própria."
+      },
+      "bad-soft": {
+        "role": "tertiary",
+        "displayName": "Véu Vermelho",
+        "canonical": "rgba(242,98,95,.15)",
+        "note": "Véu translúcido sobre o painel; sem rampa tonal própria."
+      },
+      "accent-soft-light": {
+        "role": "primary",
+        "displayName": "Véu Violeta (claro)",
+        "canonical": "rgba(106,67,217,.1)",
+        "note": "Véu translúcido sobre o painel; sem rampa tonal própria."
+      },
+      "ok-soft-light": {
+        "role": "tertiary",
+        "displayName": "Véu Verde (claro)",
+        "canonical": "rgba(28,138,84,.1)",
+        "note": "Véu translúcido sobre o painel; sem rampa tonal própria."
+      },
+      "warn-soft-light": {
+        "role": "tertiary",
+        "displayName": "Véu Âmbar (claro)",
+        "canonical": "rgba(168,100,0,.1)",
+        "note": "Véu translúcido sobre o painel; sem rampa tonal própria."
+      },
+      "bad-soft-light": {
+        "role": "tertiary",
+        "displayName": "Véu Vermelho (claro)",
+        "canonical": "rgba(207,54,51,.09)",
+        "note": "Véu translúcido sobre o painel; sem rampa tonal própria."
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Valor de KPI",
+        "purpose": "Valor de cada KPI; unidade em small 14px/500 ink-2."
+      },
+      "title": {
+        "displayName": "Título da página",
+        "purpose": "Nome do dashboard no breadcrumb."
+      },
+      "title-widget": {
+        "displayName": "Título de widget",
+        "purpose": "Título de cada widget, com subtítulo caption na mesma linha de base."
+      },
+      "body": {
+        "displayName": "Corpo",
+        "purpose": "Texto corrido, células de tabela, rótulos de toplist."
+      },
+      "label": {
+        "displayName": "Rótulo",
+        "purpose": "Título de KPI e cabeçalho de tabela."
+      },
+      "caption": {
+        "displayName": "Legenda",
+        "purpose": "Notas, subtítulos, legenda, tags e metadados."
+      },
+      "axis": {
+        "displayName": "Eixo",
+        "purpose": "Textos de eixo e valores nos gráficos SVG; pílula de amostra pequena."
+      },
+      "mono": {
+        "displayName": "Dado bruto",
+        "purpose": "Ids de pergunta, horários, prompts mascarados, motivos e code inline."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "scroll-smooth",
+        "value": "scroll-behavior: smooth",
+        "purpose": "Rolagem das abas de âncora; único movimento do sistema."
+      }
+    ],
+    "focus": [
+      {
+        "name": "focus-ring",
+        "value": "outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px",
+        "purpose": "Foco visível em todo link."
+      }
+    ],
+    "themes": {
+      "default": "dark",
+      "light": "@media (prefers-color-scheme: light); tokens com sufixo -light no frontmatter substituem os de mesmo nome base."
+    },
+    "breakpoints": [
+      {
+        "name": "md",
+        "value": "1100px",
+        "purpose": "Terços viram metades; 7/8 colunas viram largura total; KPIs em 3 colunas."
+      },
+      {
+        "name": "sm",
+        "value": "640px",
+        "purpose": "Tudo em largura total; KPIs em 2 colunas; gráfico estreito; tabelas reflow."
+      }
+    ],
+    "grid": {
+      "columns": 12,
+      "gap": "12px",
+      "gapSm": "10px",
+      "maxWidth": "1680px",
+      "pagePadding": "16px 24px 32px",
+      "pagePaddingSm": "12px 16px 24px"
+    },
+    "actionColors": {
+      "inject": "ok",
+      "warn": "warn",
+      "skip": "neutral",
+      "block": "info",
+      "fail_open": "bad"
+    },
+    "knownGaps": [
+      "Widget \"Ações\" estica até a altura do histograma e deixa cerca de 40% vazio.",
+      "Pílula \"amostra pequena\" quebra de forma inconsistente entre os KPIs p50, p90 e fail_open.",
+      "Em ≤ 640px, título h2 e subtítulo do widget se espremem lado a lado porque a linha flexível não quebra."
+    ]
+  },
+  "components": [
+    {
+      "name": "Widget",
+      "kind": "card",
+      "refersTo": "widget",
+      "description": "Contêiner padrão: painel com filete, título com subtítulo de unidade.",
+      "html": "<section class=\"ds-widget\"><h2>Latência por chamada <small>segundos, em ordem cronológica</small></h2><p class=\"ds-widget-empty\"><b>Nenhuma latência registrada ainda.</b>Cada prompt classificado pelo hook entra aqui.</p></section>",
+      "css": ".ds-widget{--bg:#14161b;--panel:#1c1f26;--raise:#242832;--line:#2c313b;--ink:#e7e9ee;--ink-2:#aab0bc;--ink-3:#8c93a1;--accent:#a184ff;--ok:#41bb7d;--warn:#e9a640;--warn-ink:#e9a640;--bad:#f2625f;--info:#58a6f5;--neutral:#737a88;--ok-soft:rgba(65,187,125,.14);--warn-soft:rgba(233,166,64,.15);--bad-soft:rgba(242,98,95,.15);font:400 13px/1.45 'Segoe UI Variable Text','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink)}.ds-widget{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 16px 16px;max-width:520px}.ds-widget h2{font-size:14px;font-weight:600;display:flex;align-items:baseline;gap:8px;margin:0 0 12px}.ds-widget h2 small{font-weight:400;color:var(--ink-3);font-size:12px}.ds-widget-empty{color:var(--ink-2);padding:18px 0 6px;max-width:60ch;margin:0}.ds-widget-empty b{color:var(--ink);display:block;margin-bottom:4px;font-weight:600}"
+    },
+    {
+      "name": "Faixa de KPIs",
+      "kind": "custom",
+      "refersTo": "kpi-tile",
+      "description": "Caixa única com células divididas por filete; véu e cor só quando há limiar.",
+      "html": "<section class=\"ds-kpis\"><div class=\"ds-kpi\"><h2>Chamadas do hook</h2><div class=\"v\">10</div><p>3 sessões · 7 tentadas</p></div><div class=\"ds-kpi bad\"><h2>Latência p90</h2><div class=\"v\">2,53<small>s</small></div><p>101% do timeout · n=7 <span class=\"ds-small-n\">amostra pequena</span></p></div><div class=\"ds-kpi ok\"><h2>Bloqueios</h2><div class=\"v\">0</div><p>prompts com segredo barrados</p></div></section>",
+      "css": ".ds-kpis{--bg:#14161b;--panel:#1c1f26;--raise:#242832;--line:#2c313b;--ink:#e7e9ee;--ink-2:#aab0bc;--ink-3:#8c93a1;--accent:#a184ff;--ok:#41bb7d;--warn:#e9a640;--warn-ink:#e9a640;--bad:#f2625f;--info:#58a6f5;--neutral:#737a88;--ok-soft:rgba(65,187,125,.14);--warn-soft:rgba(233,166,64,.15);--bad-soft:rgba(242,98,95,.15);font:400 13px/1.45 'Segoe UI Variable Text','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink)}.ds-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden}.ds-kpi{padding:12px 16px 14px;border-left:1px solid var(--line)}.ds-kpi:first-child{border-left:0}.ds-kpi h2{font-size:12px;font-weight:500;color:var(--ink-2);margin:0}.ds-kpi .v{font-size:28px;font-weight:600;line-height:1.15;margin-top:4px;letter-spacing:-.01em}.ds-kpi .v small{font-size:14px;font-weight:500;color:var(--ink-2);margin-left:2px}.ds-kpi p{color:var(--ink-3);font-size:12px;margin:2px 0 0}.ds-kpi.ok{background:var(--ok-soft)}.ds-kpi.ok .v{color:var(--ok)}.ds-kpi.bad{background:var(--bad-soft)}.ds-kpi.bad .v{color:var(--bad)}.ds-small-n{display:inline-block;margin-left:6px;padding:0 6px;border-radius:8px;background:var(--raise);color:var(--ink-2);font-size:11px}"
+    },
+    {
+      "name": "Abas de âncora",
+      "kind": "nav",
+      "refersTo": "tab-link",
+      "description": "Navegação por âncoras na faixa sob a barra superior.",
+      "html": "<nav class=\"ds-tabs\"><span>Ir para</span><a href=\"#a\">Latência</a><a href=\"#b\">Confiança</a><a href=\"#c\">Fine-tuning</a></nav>",
+      "css": ".ds-tabs{--bg:#14161b;--panel:#1c1f26;--raise:#242832;--line:#2c313b;--ink:#e7e9ee;--ink-2:#aab0bc;--ink-3:#8c93a1;--accent:#a184ff;--ok:#41bb7d;--warn:#e9a640;--warn-ink:#e9a640;--bad:#f2625f;--info:#58a6f5;--neutral:#737a88;--ok-soft:rgba(65,187,125,.14);--warn-soft:rgba(233,166,64,.15);--bad-soft:rgba(242,98,95,.15);font:400 13px/1.45 'Segoe UI Variable Text','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink)}.ds-tabs{display:flex;gap:4px;padding:0 24px;background:var(--panel);border-bottom:1px solid var(--line)}.ds-tabs span{padding:10px 12px 10px 0;color:var(--ink-3)}.ds-tabs a{padding:10px 12px;color:var(--ink-2);text-decoration:none;border-bottom:2px solid transparent;font-weight:500}.ds-tabs a:hover{color:var(--ink);border-bottom-color:var(--line)}.ds-tabs a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Rótulo somente leitura; ponto na cor da ação ou variante de baixa confiança.",
+      "html": "<div class=\"ds-tagrow\"><span class=\"ds-tag\"><i style=\"background:#f2625f\"></i>fail_open</span><span class=\"ds-tag\"><i style=\"background:#41bb7d\"></i>inject</span><span class=\"ds-tag lowc\">task_kind → bugfix 0,27</span><span class=\"ds-tag\">0</span></div>",
+      "css": ".ds-tagrow{--bg:#14161b;--panel:#1c1f26;--raise:#242832;--line:#2c313b;--ink:#e7e9ee;--ink-2:#aab0bc;--ink-3:#8c93a1;--accent:#a184ff;--ok:#41bb7d;--warn:#e9a640;--warn-ink:#e9a640;--bad:#f2625f;--info:#58a6f5;--neutral:#737a88;--ok-soft:rgba(65,187,125,.14);--warn-soft:rgba(233,166,64,.15);--bad-soft:rgba(242,98,95,.15);font:400 13px/1.45 'Segoe UI Variable Text','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink)}.ds-tagrow{display:flex;gap:8px;flex-wrap:wrap}.ds-tag{display:inline-flex;align-items:center;gap:6px;padding:1px 8px;border-radius:10px;background:var(--raise);font-size:12px;white-space:nowrap;color:var(--ink-2)}.ds-tag i{display:inline-block;width:9px;height:9px;border-radius:2px}.ds-tag.lowc{background:var(--warn-soft);color:var(--warn-ink)}"
+    },
+    {
+      "name": "Toplist",
+      "kind": "custom",
+      "refersTo": "toplist-bar",
+      "description": "Rótulo, contagem e percentual sobre barra de 6px proporcional ao maior item.",
+      "html": "<ul class=\"ds-top\"><li><span class=\"k\">inject · dica injetada</span><span><b>2</b> <span class=\"p\">20%</span></span><span class=\"bar\"><i style=\"width:67%;background:var(--ok)\"></i></span></li><li><span class=\"k\">fail_open · Laya não respondeu a tempo</span><span><b>3</b> <span class=\"p\">30%</span></span><span class=\"bar\"><i style=\"width:100%;background:var(--bad)\"></i></span></li><li><span class=\"k\">mid</span><span><b>2</b> <span class=\"p\">50%</span></span><span class=\"bar\"><i style=\"width:100%\"></i></span></li></ul>",
+      "css": ".ds-top{--bg:#14161b;--panel:#1c1f26;--raise:#242832;--line:#2c313b;--ink:#e7e9ee;--ink-2:#aab0bc;--ink-3:#8c93a1;--accent:#a184ff;--ok:#41bb7d;--warn:#e9a640;--warn-ink:#e9a640;--bad:#f2625f;--info:#58a6f5;--neutral:#737a88;--ok-soft:rgba(65,187,125,.14);--warn-soft:rgba(233,166,64,.15);--bad-soft:rgba(242,98,95,.15);font:400 13px/1.45 'Segoe UI Variable Text','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink)}.ds-top{list-style:none;display:grid;gap:9px;margin:0;padding:0;max-width:420px}.ds-top li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:baseline}.ds-top .k{color:var(--ink-2)}.ds-top b{font-weight:600}.ds-top .p{color:var(--ink-2)}.ds-top .bar{grid-column:1/-1;height:6px;background:var(--raise);border-radius:3px;overflow:hidden}.ds-top .bar i{display:block;height:100%;background:var(--accent);border-radius:3px}"
+    },
+    {
+      "name": "Tabela com medidor de confiança",
+      "kind": "custom",
+      "refersTo": "table-cell",
+      "description": "Tabela densa com filetes, números à direita, hover em raise e medidor por limiar.",
+      "html": "<table class=\"ds-table\"><thead><tr><th>Pergunta</th><th class=\"r\">Respostas</th><th>Confiança média</th></tr></thead><tbody><tr><td class=\"mono\">change_risk</td><td class=\"r\">4</td><td><div class=\"conf\"><span class=\"track\"><i style=\"width:49%;background:var(--bad)\"></i></span>0,49</div></td></tr><tr><td class=\"mono\">task_kind</td><td class=\"r\">4</td><td><div class=\"conf\"><span class=\"track\"><i style=\"width:68%;background:var(--warn)\"></i></span>0,68</div></td></tr><tr><td class=\"mono\">jailbreak</td><td class=\"r\">4</td><td><div class=\"conf\"><span class=\"track\"><i style=\"width:84%;background:var(--ok)\"></i></span>0,84</div></td></tr></tbody></table>",
+      "css": ".ds-table{--bg:#14161b;--panel:#1c1f26;--raise:#242832;--line:#2c313b;--ink:#e7e9ee;--ink-2:#aab0bc;--ink-3:#8c93a1;--accent:#a184ff;--ok:#41bb7d;--warn:#e9a640;--warn-ink:#e9a640;--bad:#f2625f;--info:#58a6f5;--neutral:#737a88;--ok-soft:rgba(65,187,125,.14);--warn-soft:rgba(233,166,64,.15);--bad-soft:rgba(242,98,95,.15);font:400 13px/1.45 'Segoe UI Variable Text','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink)}.ds-table{width:100%;max-width:560px;border-collapse:collapse}.ds-table th{font-size:12px;font-weight:500;color:var(--ink-3);text-align:left;padding:0 10px 8px;border-bottom:1px solid var(--line)}.ds-table td{padding:8px 10px;border-bottom:1px solid var(--line)}.ds-table tr:last-child td{border-bottom:0}.ds-table tbody tr:hover td{background:var(--raise)}.ds-table .r{text-align:right}.ds-table .mono{font-family:'Cascadia Mono','Cascadia Code',Consolas,ui-monospace,monospace;font-size:12px}.ds-table .conf{display:flex;align-items:center;gap:8px;min-width:120px}.ds-table .track{flex:1;height:6px;background:var(--raise);border-radius:3px;overflow:hidden}.ds-table .track i{display:block;height:100%;border-radius:3px}"
+    },
+    {
+      "name": "Série temporal com limite",
+      "kind": "custom",
+      "refersTo": "widget",
+      "description": "SVG inline: grade em line, série accent, pontos pela ação, timeout tracejado em bad.",
+      "html": "<svg class=\"ds-chart\" viewBox=\"0 0 360 150\"><line class=\"g\" x1=\"40\" x2=\"350\" y1=\"20\" y2=\"20\"/><line class=\"g\" x1=\"40\" x2=\"350\" y1=\"70\" y2=\"70\"/><line class=\"g\" x1=\"40\" x2=\"350\" y1=\"120\" y2=\"120\"/><text x=\"34\" y=\"124\" text-anchor=\"end\">0 s</text><text x=\"34\" y=\"74\" text-anchor=\"end\">1,5 s</text><line class=\"lim\" x1=\"40\" x2=\"350\" y1=\"37\" y2=\"37\"/><text class=\"lim-t\" x=\"350\" y=\"31\" text-anchor=\"end\">timeout 2,50 s</text><polyline class=\"p\" points=\"40,70 120,74 200,37 280,80 350,38\"/><circle cx=\"40\" cy=\"70\" r=\"4\" fill=\"var(--ok)\"/><circle cx=\"120\" cy=\"74\" r=\"4\" fill=\"var(--warn)\"/><circle cx=\"200\" cy=\"37\" r=\"4\" fill=\"var(--bad)\"/><circle cx=\"280\" cy=\"80\" r=\"4\" fill=\"var(--ok)\"/><circle cx=\"350\" cy=\"38\" r=\"4\" fill=\"var(--bad)\"/></svg>",
+      "css": ".ds-chart{--bg:#14161b;--panel:#1c1f26;--raise:#242832;--line:#2c313b;--ink:#e7e9ee;--ink-2:#aab0bc;--ink-3:#8c93a1;--accent:#a184ff;--ok:#41bb7d;--warn:#e9a640;--warn-ink:#e9a640;--bad:#f2625f;--info:#58a6f5;--neutral:#737a88;--ok-soft:rgba(65,187,125,.14);--warn-soft:rgba(233,166,64,.15);--bad-soft:rgba(242,98,95,.15);font:400 13px/1.45 'Segoe UI Variable Text','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink)}.ds-chart{display:block;width:100%;max-width:520px;height:auto;overflow:visible;background:var(--panel)}.ds-chart text{fill:var(--ink-3);font-size:11px}.ds-chart .g{stroke:var(--line);stroke-width:1}.ds-chart .lim{stroke:var(--bad);stroke-width:1.5;stroke-dasharray:5 4}.ds-chart .lim-t{fill:var(--bad);font-weight:600}.ds-chart .p{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:.55}"
+    },
+    {
+      "name": "Code inline",
+      "kind": "custom",
+      "refersTo": "inline-code",
+      "description": "Comandos e caminhos em mono sobre raise.",
+      "html": "<p class=\"ds-code\">Fonte: <code>.laya-connector/logs/*.jsonl</code></p>",
+      "css": ".ds-code{--bg:#14161b;--panel:#1c1f26;--raise:#242832;--line:#2c313b;--ink:#e7e9ee;--ink-2:#aab0bc;--ink-3:#8c93a1;--accent:#a184ff;--ok:#41bb7d;--warn:#e9a640;--warn-ink:#e9a640;--bad:#f2625f;--info:#58a6f5;--neutral:#737a88;--ok-soft:rgba(65,187,125,.14);--warn-soft:rgba(233,166,64,.15);--bad-soft:rgba(242,98,95,.15);font:400 13px/1.45 'Segoe UI Variable Text','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink)}.ds-code{color:var(--ink-3);font-size:12px;margin:0}.ds-code code{font-family:'Cascadia Mono','Cascadia Code',Consolas,ui-monospace,monospace;font-size:12px;background:var(--raise);padding:1px 5px;border-radius:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "O Painel de Plantão",
+    "overview": "O dashboard é um painel de observabilidade no padrão da categoria, executado sem ironia e no acabamento do Datadog: barra superior com marca, breadcrumb e período coberto; uma faixa de valores-consulta; e, abaixo, widgets densos, cada um com título, unidade e um único tipo de leitura (série temporal, histograma, toplist ou tabela). Quem abre o painel é o mantenedor em modo de operação, e cada pixel serve para responder rápido se o hook está dentro do orçamento de latência e se já há dados para treinar.\n\nA base é escura (grafite), com tema claro completo via `prefers-color-scheme`. A profundidade vem só de tom e de filete: o fundo, os painéis um tom acima e as superfícies internas mais um tom, todos separados por linhas de 1px. Não há sombra em lugar nenhum. A cor é semântica: violeta para a série principal, seleção e links; verde, âmbar e vermelho apenas onde carregam estado; azul e cinza só para as ações `block` e `skip`.\n\nO sistema recusa o grid de cards genéricos com número gigante e nada atrás: todo número grande vem com contexto (percentual do timeout, `n=`, denominador) e todo estado vazio explica o que vai aparecer ali e por quê.",
+    "keyCharacteristics": [
+      "Densidade de console: corpo em 13px, gutter de 12px, grid de 12 colunas.",
+      "Plano por construção: tom + filete de 1px, zero sombras.",
+      "Cor como dado: o mapa de ações (`inject`, `warn`, `skip`, `block`, `fail_open`) é fixo em todos os gráficos, legendas, barras e tags.",
+      "Numerais tabulares em todo o documento; mono só para dados brutos e trechos de prompt.",
+      "Dois temas com os mesmos nomes de token, escuro por padrão."
+    ],
+    "rules": [
+      {
+        "name": "The Color Is Data Rule",
+        "body": "Cada ação tem uma cor e só uma (`inject` verde, `warn` âmbar, `skip` cinza, `block` azul, `fail_open` vermelho), e essa cor é a mesma no gráfico de pontos, nas barras empilhadas, nas toplists, na legenda e na tag da tabela. Nenhuma cor de estado é usada como decoração.",
+        "section": "colors"
+      },
+      {
+        "name": "The Threshold Paint Rule",
+        "body": "Um KPI só ganha cor quando tem limiar definido: latência em relação ao timeout (aviso ≥ 60%, falha ≥ 90%) e fail_open em relação às tentativas (aviso ≥ 1%, falha ≥ 5%). Contagens sem limiar (chamadas, bloqueios, rótulos) ficam neutras.",
+        "section": "colors"
+      },
+      {
+        "name": "The Twin Theme Rule",
+        "body": "Todo token existe nos dois temas com o mesmo nome; o tema claro troca valores, nunca papéis.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Everywhere Rule",
+        "body": "`font-variant-numeric: tabular-nums` vale para o documento inteiro, para que colunas de números e valores que se atualizam não dancem.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mono Is Raw Data Rule",
+        "body": "Mono só para o que o mantenedor copiaria ou compararia literalmente (ids, prompts, motivos, caminhos). Rótulos, números e títulos ficam na fonte de interface.",
+        "section": "typography"
+      },
+      {
+        "name": "The Brazilian Number Rule",
+        "body": "Números usam vírgula decimal e ponto de milhar (`2,37 s`, `1.024`), segundos com duas casas abaixo do timeout, e \"…\" como o valor de ausência; nada é inventado para preencher um campo.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Shadow Rule",
+        "body": "Nenhuma sombra, em nenhum tema. Separação é tom e filete de 1px; se um elemento precisa de destaque, ele ganha cor semântica, não elevação.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** dar a todo widget um título e, quando houver, a unidade no subtítulo.",
+      "**Do** acompanhar todo número grande do seu contexto: denominador, `n=` ou percentual do timeout.",
+      "**Do** usar o mapa fixo de cores de ação em qualquer gráfico, legenda, barra ou tag nova.",
+      "**Do** separar superfícies com o degrau tonal seguinte e um filete de 1px em `line`.",
+      "**Do** definir todo token novo nos dois temas com o mesmo nome.",
+      "**Do** escrever estados vazios que digam o que falta e o que vai aparecer ali."
+    ],
+    "donts": [
+      "**Don't** usar sombra para separar ou destacar nada.",
+      "**Don't** pintar um KPI sem limiar definido.",
+      "**Don't** usar verde, âmbar, vermelho, azul ou cinza de ação como decoração.",
+      "**Don't** usar mono para rótulos, títulos ou números de KPI.",
+      "**Don't** montar a faixa de valores como cards soltos com número gigante e nada atrás.",
+      "**Don't** preencher campos sem dado com números inventados; use \"…\" ou um estado vazio."
+    ]
+  }
+}
