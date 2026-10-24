@@ -46,4 +46,11 @@ Depois abra a pasta no Claude Code. Ele lê `.claude/settings.json` (o hook) e `
 ## Limitações
 - Sem fine-tuning, os rótulos de tarefa e risco são aproximados. A linha `[laya]` é só uma dica, e o log em `.laya-connector/logs/` serve para treinar um checkpoint depois.
 - O guard do Laya é fraco contra injeção embutida em documentos. Segredos são detectados por regex, sem depender do modelo.
+## Dashboard de desempenho
+```bash
+uv run --script bin/laya_dashboard.py          # grava .laya-connector/dashboard.html
+uv run --script bin/laya_dashboard.py --open   # e abre no navegador padrão
+```
+Lê `.laya-connector/logs/*.jsonl` e gera um HTML autocontido, sem rede: latência contra o timeout do hook, `fail_open`, bloqueios, tier sugerido, confiança por pergunta e os prompts de baixa confiança candidatos a fine-tuning. Os prompts aparecem mascarados e truncados. No Windows com o projeto no WSL, abra `\\wsl.localhost\Ubuntu\<caminho>\.laya-connector\dashboard.html`. As chamadas MCP não são registradas no log e por isso não aparecem no painel.
+
 - Em CPU, se o hook passar do timeout ele simplesmente não injeta nada. Use o `doctor` para medir.
